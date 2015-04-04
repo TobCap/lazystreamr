@@ -1,0 +1,10 @@
+Package: lazystream
+Type: Package
+Title: What the Package Does (Title Case)
+Version: 0.1
+Date: 2015-04-04
+Author: tob
+Maintainer: tob <tobakucapitalism@gmail.com>
+Description: there are functions that handle lazy stream objects
+License: MIT + file LICENSE
+Suggests: testthat
