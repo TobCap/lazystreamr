@@ -27,7 +27,8 @@ lcdr(x)
 }
 \description{
 function names come from Haskell. \code{lcar} and \code{lcdr}
-are also defined but not recommended to use to avoid mixture of Haskell and Scheme.
+are renames of \code{lhead} and \code{ltail} but not recommended to use
+ to avoid mixture of Haskell and Scheme.
 }
 \examples{
 x <- llist(1, 2, 3)
@@ -35,5 +36,8 @@ lhead(x) # => 1
 ltail(x) # => llist(2, 3)
 linit(x) # => llist(1, 2)
 llast(x) # => 3
+
+tryCatch(lhead(lempty), error = function(e) print(e))
+# => <simpleError in lhead(lempty): empty list>
 }
 

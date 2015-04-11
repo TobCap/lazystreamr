@@ -12,7 +12,8 @@
 #' linit(x) # => llist(1, 2)
 #' llast(x) # => 3
 #'
-#' lhead(lempty) # => Error in lhead(lempty) : empty list
+#' tryCatch(lhead(lempty), error = function(e) print(e))
+#' # => <simpleError in lhead(lempty): empty list>
 NULL
 
 #' @rdname basic_functions

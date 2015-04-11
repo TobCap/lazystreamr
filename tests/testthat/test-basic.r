@@ -11,7 +11,8 @@ test_that("test", {
 
   expect_equal(lhead(x0), 1)
   expect_equal(ltail(x0), llist(2, 3))
-  expect_equal(linit(x0), llist(1, 2))
+  # expect_equal(linit(x0), llist(1, 2))
+  expect_equal(lforce(linit(x0)), lforce(llist(1, 2)))
   expect_equal(llast(x0), 3)
 
   expect_error(lhead(lempty))

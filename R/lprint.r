@@ -36,7 +36,7 @@ lforce <- function(x, elem_max = 50, depth_max = 3) {
 
   iter <- function(x, elem_max, depth_max) {
     if (elem_max == 0 && !lnull(x)) {
-      message("elements are over ", elem_init, "; stop converting and the rest are omitted");
+      message("the number of elements are over ", elem_init, "; stop converting and the rest are omitted");
       return(quote(`... omitted rest elements`))
     } else if (depth_max == 0 && !lnull(x)) {
       message("depth is over ", depth_init, "; stop converting and the rest are omitted");
