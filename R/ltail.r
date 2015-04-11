@@ -5,5 +5,11 @@
 #' @examples
 #' x <- llist(1, 2, 3)
 #' ltail(x) # => llist(2, 3)
-ltail <- lcdr <- function(x) if (lnull(x)) stop("empty list") else x$tail()
+ltail <- function(x) {
+  if (lnull(x)) stop("empty list")
+  else if (!is.lcons(x)) stop(x, " must be lcons")
+  else x$tail()
+}
 
+#' @export
+lcdr <- ltail

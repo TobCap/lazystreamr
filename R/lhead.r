@@ -5,4 +5,11 @@
 #' @examples
 #' x <- llist(1, 2, 3)
 #' lhead(x) # => 1
-lhead <- lcar <- function(x) if (lnull(x)) stop("empty list") else x$head
+lhead <- function(x) {
+  if (lnull(x)) stop("empty list")
+  else if (!is.lcons(x)) stop("x must be lcons")
+  else x$head
+}
+
+#' @export
+lcar <- lhead
