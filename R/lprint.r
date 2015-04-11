@@ -15,7 +15,7 @@ NULL
 #' @export
 lprint <- function(x, elem_max = 50, depth_max = 3) {
   message("llist -> list, lcons -> list(car = , cdr = )")
-  dput(lforce(x, elem_max, depth_max))
+  dput(lforce(x, elem_max, depth_max), control = NULL)
 }
 
 #' @rdname lprint
