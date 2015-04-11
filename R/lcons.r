@@ -1,4 +1,4 @@
-#' Creates a lazy stream
+#' Creates a pair, the right value is promised (by making lambda)
 #'
 #' The idea and funcition names mainly comes from Scheme (Gauche) and Haskell. see References
 #' @references

@@ -3,7 +3,7 @@
 \name{lcons}
 \alias{\%:\%}
 \alias{lcons}
-\title{Creates a lazy stream}
+\title{Creates a pair, the right value is promised (by making lambda)}
 \usage{
 lhs \%:\% rhs
 
