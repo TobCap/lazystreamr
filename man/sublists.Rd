@@ -40,9 +40,9 @@ the order of parameters is different from Haskell.
 x <- 1 \%..\% 10
 ltake(x, 5) # => llist(1, 2, 3, 4, 5)
 ldrop(x, 7) # => llist(8, 9, 10)
-lsplitAt(x, 4) # => list(llist(1,2,3,4), llist(5,6,7,8,9,10))
-ltakeWhile(x, function(x) x < 4) # => llist(1,2,3)
-ldropWhile(x, function(x) x < 4) # => llist(1,2,3)
+lsplitAt(x, 4) # => list(1\%..\%3, 4\%..\%10)
+ltakeWhile(x, function(x) x < 4) # => 1\%..\%3
+ldropWhile(x, function(x) x < 4) # => 4\%..\%10
 lspan(x, function(x) x < 4) # => list(1\%..\%3, 4\%..\%10)
 lbreak(x, function(x) x >= 4) # => list(1\%..\%3, 4\%..\%10)
 }
