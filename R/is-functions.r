@@ -39,8 +39,8 @@ is.llist <- function(x) {
   iter <- function(hd, tl) {
     if (is.lcons(hd)) {
       hd2 <- ltail(hd)
-      if (is.lcons(hd2)) {
-        identical(hd2, ltail(tl), ignore.environment = TRUE) || iter(ltail(hd2), ltail(tl))
+      if (is.lpair(hd2)) {
+        identical(hd$tail, hd2$tail, ignore.environment = TRUE) || iter(ltail(hd2), ltail(tl))
       } else {
         lnull(hd2)
       }
