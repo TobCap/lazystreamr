@@ -1,6 +1,6 @@
 #' Concat a lazy object
-#' @param x: a lazy stream object
-#' @param f: function that returns a lazy stream object
+#' @param x a lazy stream object
+#' @param f function that returns a lazy stream object
 #' @return [[a]] -> [a]
 #' @examples
 #' lconcat(llist(llist(1,2), llist(3), llist(4,5,6))) # => llist(1,2,3,4,5,6)

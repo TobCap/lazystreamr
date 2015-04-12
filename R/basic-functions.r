@@ -3,7 +3,7 @@
 #' function names come from Haskell. \code{lcar} and \code{lcdr}
 #' are renames of \code{lhead} and \code{ltail} but not recommended to use
 #'  to avoid mixture of Haskell and Scheme.
-#' @param x: a lazy stream objects, which must not be `lempty`
+#' @param x a lazy stream objects, which must not be `lempty`
 #' @name basic_functions
 #' @examples
 #' x <- llist(1, 2, 3)
@@ -20,7 +20,7 @@ NULL
 #' @export
 lhead <- function(x) {
   if (lnull(x)) stop("empty list")
-  else if (!is.lcons(x)) stop("x must be lcons")
+  else if (!is.lpair(x)) stop("x must be lcons")
   else x$head
 }
 
@@ -28,7 +28,7 @@ lhead <- function(x) {
 #' @export
 ltail <- function(x) {
   if (lnull(x)) stop("empty list")
-  else if (!is.lcons(x)) stop(x, " must be lcons")
+  else if (!is.lpair(x)) stop(x, " must be lcons")
   else x$tail()
 }
 

@@ -1,15 +1,15 @@
 #' Lazy stream generators
 #' @description generate a lazy stream
 #' @name generators
-#' @param rhs: numeric which is converted to integer
-#' @param lhs: numeric which is converted to integer
-#' @param  n: number of elements
-#' @param start_: start value
-#' @param step_: step value
-#' @param next_: next value
-#' @param end_: env value
-#' @param f: a function for \code{lseq_maker}
-#' @param ...: arguments for \code{f}
+#' @param rhs numeric which is converted to integer
+#' @param lhs numeric which is converted to integer
+#' @param  n number of elements
+#' @param start_ start value
+#' @param step_ step value
+#' @param next_ next value
+#' @param end_ env value
+#' @param f a function for \code{lseq_maker}
+#' @param ... arguments for \code{f}
 #' @examples
 #' x <- 1 %..% 3
 #' y <- 4 %..% 5

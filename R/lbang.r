@@ -1,7 +1,7 @@
 #' Extract the nth elements (starting from 0)
 #'
-#' @param x: a lazy stream object
-#' @param n: index starting from 0
+#' @param x a lazy stream object
+#' @param n index starting from 0
 #' @export
 #' @examples
 #' x <- llist(1, 2, 3, 4, 5)

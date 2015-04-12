@@ -6,16 +6,16 @@
 #' @param x a lcons object
 #' @name is_lazystream
 #' @examples
-#'  is.lcons(lempty) # => FALSE
 #'  is.lpair(lempty) # => FALSE
+#'  is.lpair_not_llist(lempty) # => FALSE
 #'  is.llist(lempty) # => TRUE
 #'
-#'  is.lcons(1 %:% 2) # => TRUE
 #'  is.lpair(1 %:% 2) # => TRUE
+#'  is.lpair_not_llist(1 %:% 2) # => TRUE
 #'  is.llist(1 %:% 2) # => FALSE
 #'
-#'  is.lcons(1 %..% 2) # => TRUE
-#'  is.lpair(1 %..% 2) # => FALSE
+#'  is.lpair(1 %..% 2) # => TRUE
+#'  is.lpair_not_llist(1 %..% 2) # => FALSE
 #'  is.llist(1 %..% 2) # => TRUE
 #'
 #'  ones <- 1 %:% ones
@@ -27,20 +27,20 @@ NULL
 
 #' @rdname is_lazystream
 #' @export
-is.lcons <- function(x) inherits(x, "lcons")
+is.lpair <- function(x) inherits(x, "lcons")
 
 #' @rdname is_lazystream
 #' @export
-is.lpair <- function(x) is.lcons(x) && !is.llist(x)
+is.lpair_not_llist <- function(x) is.lpair(x) && !is.llist(x)
 
 #' @rdname is_lazystream
 #' @export
 is.llist <- function(x) {
   iter <- function(hd, tl) {
-    if (is.lcons(hd)) {
+    if (is.lpair(hd)) {
       hd2 <- ltail(hd)
-      if (is.lcons(hd2)) {
-        identical(hd2, ltail(tl), ignore.environment = TRUE) || iter(ltail(hd2), ltail(tl))
+      if (is.lpair(hd2)) {
+        identical(hd$tail, hd2$tail, ignore.environment = TRUE) || iter(ltail(hd2), ltail(tl))
       } else {
         lnull(hd2)
       }

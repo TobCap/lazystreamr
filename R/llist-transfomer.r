@@ -1,8 +1,8 @@
 #' llist transformation
-#' @param x: a lazy stream
-#' @param l: llist of llist
-#' @param f: conver
-#' @param expr: the simbol `.` is treated as an formal parameter
+#' @param x a lazy stream
+#' @param l llist of llist
+#' @param f conver
+#' @param ex a simbol `.` is treated as an formal parameter
 #' @name llist_transformer
 #' @examples
 #' x1 <- llist(llist(1,2,3), llist(4,5,6))
@@ -24,15 +24,19 @@ lmap <- function(x, f) {
 
 #' @rdname llist_transformer
 #' @export
-lmap2 <- function(x, expr) {
-  expr_subs <- substitute(expr)
-  f_mod <-
-    if (expr_subs[[1]] == "function" || length(expr_subs) == 1 && expr_sub != ".")
-      expr
-    else if ("." %in% all.vars(expr_subs))
-      eval(call("function", as.pairlist(alist(.=)), expr_subs), parent.frame())
-    else
-      stop("bad expression for expr")
+lmap2 <- function(x, ex) {
+  expr <- substitute(ex)
+
+  f_mod <- tryCatch(is.function(ex),
+    error = function(e) eval(call("function", as.pairlist(alist(.=)), expr), parent.frame()))
+#
+#   f_mod <-
+#     if (expr[[1]] == "function" || length(expr) == 1 && expr != ".")
+#       ex
+#     else if ("." %in% all.vars(expr))
+#       eval(call("function", as.pairlist(alist(.=)), expr), parent.frame())
+#     else
+#       stop("bad exession for ex")
 
   iter <- function(x, f) {
     if (lnull(x)) lempty
