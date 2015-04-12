@@ -40,3 +40,21 @@ lor <- function(x) {
   if (lnull(x)) FALSE
   else isTRUE(lhead(x)) || lor(ltail(x))
 }
+
+lsum <- function(x) {
+  lfoldl(x, `+`, 0)
+}
+
+lproduct <- function(x) {
+  lfoldl(x, `*`, 0)
+}
+
+lmaximum <- function(x, acc) {
+  if (lnull(x)) stop("empty llist")
+  else lfoldl1(x, max)
+}
+
+lminmum <- function(x) {
+  if (lnull(x)) stop("empty llist")
+  else lfoldl1(x, min)
+}
