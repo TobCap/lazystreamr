@@ -1,6 +1,6 @@
 #' append lazy stream
-#' @param lhs: a lazy stream
-#' @param rhs: a lazy stream
+#' @param lhs a lazy stream
+#' @param rhs a lazy stream
 #' @name lappend
 #' @examples
 #' x <- llist(1, 2)

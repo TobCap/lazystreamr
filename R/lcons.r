@@ -12,9 +12,9 @@
 #'   \item \url{http://hackage.haskell.org/package/base-4.7.0.0/docs/Data-List.html}
 #' }
 #' @name lcons
-#' @param x car part
-#' @param y cdr part
-#' @return lazy cons of \code{x} and \code{y}.
+#' @param lhs car part
+#' @param rhs cdr part
+#' @return lazy cons of \code{lhs} and \code{rhs}.
 #' @examples
 #'
 #' # R's infix operator has left-associativity

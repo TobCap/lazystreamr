@@ -1,6 +1,6 @@
 #' Count length of finite lazy stream
 #'
-#' @param x: a lazy stream
+#' @param x a lazy stream
 #' @export
 #' @examples
 #' x <- llist(1, 2, 3)

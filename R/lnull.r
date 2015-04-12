@@ -1,7 +1,7 @@
 #' Check weather a lazy stream is lempty
 #'
 #' @name lnull
-#' @param x: a lazy stream object
+#' @param x a lazy stream object
 #' @details 'lempty' is just a symbol representing empty list of a lazy stream object.
 #'  lnull() tests whether a R object equals lempty.
 #' @examples

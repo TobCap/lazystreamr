@@ -19,19 +19,19 @@ test_that("test", {
   expect_error(ltail(lempty))
 
   expect_true(is.llist(x1))
-  expect_true(is.lcons(x1))
-  expect_false(is.lpair((x1)))
+  expect_true(is.lpair(x1))
+  expect_false(is.lpair_not_llist((x1)))
 
   expect_true(is.llist(x2))
-  expect_true(is.lcons(x2))
-  expect_false(is.lpair((x2)))
+  expect_true(is.lpair(x2))
+  expect_false(is.lpair_not_llist((x2)))
 
   expect_true(is.llist(x3))
-  expect_true(is.lcons(x3))
-  expect_false(is.lpair((x3)))
+  expect_true(is.lpair(x3))
+  expect_false(is.lpair_not_llist((x3)))
 
   expect_false(is.llist(x4))
-  expect_true(is.lcons(x4))
-  expect_true(is.lpair((x4)))
+  expect_true(is.lpair(x4))
+  expect_true(is.lpair_not_llist((x4)))
 
 })

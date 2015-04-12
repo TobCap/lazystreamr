@@ -1,8 +1,8 @@
 #' Boolean functions
 #' @description Return TRUE or FALSE for a lazy stream
 #' @name lboolean
-#' @param x: a lazy stream object
-#' @param f: a predicate function
+#' @param x a lazy stream object
+#' @param f a predicate function
 #'
 #' @examples
 #' x <- 1%..%10

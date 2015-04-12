@@ -1,8 +1,8 @@
 #' Infinit lists
 #' @description create an infinit lazy stream form a finit lazy stream
 #' @name linfinit
-#' @param x: a lazy stream object
-#' @param f: a generating function
+#' @param x a lazy stream object
+#' @param f a generating function
 #'
 #' @examples
 #' literate(1, function(x) x+1)

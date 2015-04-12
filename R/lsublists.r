@@ -2,9 +2,9 @@
 #' @description the order of parameters is different from Haskell.
 #'  The first argument is a lazy steram which enable you to use magrittr's pipe smoothly.
 #' @name sublists
-#' @param x: a lazy stream
-#' @param n: intege
-#' @param f: predicate function (a' -> Boolean)
+#' @param x a lazy stream
+#' @param n intege
+#' @param f predicate function (a' -> Boolean)
 #' @examples
 #' x <- 1 %..% 10
 #' ltake(x, 5) # => llist(1, 2, 3, 4, 5)
