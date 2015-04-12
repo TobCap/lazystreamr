@@ -9,7 +9,7 @@
 #' @rdname lconcat
 #' @export
 lconcat <- function(x) {
-  # lforldr(`%++%`, lempty, x)
+  # lforldr(x, `%++%`, lempty)
   if (lnull(x)) lempty
   else lhead(x) %++% lconcat(ltail(x))
 }
