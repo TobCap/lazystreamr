@@ -1,8 +1,8 @@
 context("test for basic functions")
 x0 <- llist(1, 2, 3)
 x1 <- 1 %:% (2 %:% lempty)
-x2 <- (1%..%2) %:% ((10%..%11) %:% lempty)
-x3 <- llist(llist(1,2), llist(10,11))
+x2 <- (1 %..% 2) %:% ( (10 %..% 11) %:% lempty)
+x3 <- llist(llist(1, 2), llist(10, 11))
 x4 <- 1 %:% 2
 
 test_that("test", {
@@ -20,18 +20,18 @@ test_that("test", {
 
   expect_true(is.llist(x1))
   expect_true(is.lpair(x1))
-  expect_false(is.lpair_not_llist((x1)))
+  expect_false(is.lpair_not_llist(x1))
 
   expect_true(is.llist(x2))
   expect_true(is.lpair(x2))
-  expect_false(is.lpair_not_llist((x2)))
+  expect_false(is.lpair_not_llist(x2))
 
   expect_true(is.llist(x3))
   expect_true(is.lpair(x3))
-  expect_false(is.lpair_not_llist((x3)))
+  expect_false(is.lpair_not_llist(x3))
 
   expect_false(is.llist(x4))
   expect_true(is.lpair(x4))
-  expect_true(is.lpair_not_llist((x4)))
+  expect_true(is.lpair_not_llist(x4))
 
 })

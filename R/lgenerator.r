@@ -28,7 +28,8 @@ NULL
     if (x == y) x %:% lempty
     else if (x < y) x %:% iter(x + 1L, y)
     else if (x > y) x %:% iter(x - 1L, y)
-    else stop("") }
+    else stop("")
+  }
   iter(as.integer(lhs), if (is.finite(rhs)) as.integer(rhs) else rhs)
 }
 
@@ -51,9 +52,16 @@ larith <- function(start_, next_, end_ = Inf) {
 # The generating function f(x0, x1, ..., xn-1) takes last n arguments and returns xn (next value).
 lseq_maker1 <- function(x, f) x %:% lseq_maker1(f(x), f)
 lseq_maker2 <- function(x0, x1, f) x0 %:% lseq_maker2(x1, f(x0, x1), f)
-lseq_maker3 <- function(x0, x1, x2, f) x0 %:% lseq_maker3(x1, x2, f(x0, x1, x2), f)
+lseq_maker3 <- function(x0, x1, x2, f)
+  x0 %:% lseq_maker3(x1, x2, f(x0, x1, x2), f)
 
 ## induce a rule from above patterns.
 #' @rdname generators
 #' @export
-lseq_maker <- function(..., f) ..1 %:% do.call(lseq_maker, c(list(...)[-1], do.call(f, list(...), quote = TRUE), f = f), quote = TRUE)
+lseq_maker <- function(..., f) {
+  ..1 %:%
+    do.call(
+      lseq_maker,
+      c(list(...)[-1], do.call(f, list(...), quote = TRUE), f = f),
+      quote = TRUE)
+}

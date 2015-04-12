@@ -11,7 +11,8 @@ NULL
 
 #' @rdname lsearching
 #' @export
-lfind <- function(x, f) { # not Maybe Class
+lfind <- function(x, f) {
+  # not Maybe Class
   if (lnull(x)) lempty
   else if (f(hd <- lhead(x))) hd
   else lfind(ltail(x), f)

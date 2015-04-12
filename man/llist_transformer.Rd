@@ -12,7 +12,7 @@ lmap(x, f)
 
 lmap2(x, ex)
 
-lreverse(x, acc = lempty)
+lreverse(x)
 
 ltranspose(l)
 }

@@ -1,6 +1,6 @@
 context("test for lforld")
 
-x1_10 <- 1%..%10
+x1_10 <- 1 %..% 10
 f <- lforce
 test_that("test", {
   expect_equal(lfoldl(x1_10, `+`, 0), 55)
@@ -12,7 +12,7 @@ test_that("test", {
     lforce(lscanl1(liota(10), `+`))
   )
   expect_equal(
-    f(unfoldr(0, function(x) if (x >= 10) quote(Nothing) else lcons(x, x+1))),
+    f(lunfoldr(0, function(x) if (x >= 10) quote(Nothing) else lcons(x, x + 1))),
     f(liota(10)))
 
 })

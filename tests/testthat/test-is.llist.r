@@ -22,8 +22,9 @@ test_that("test", {
   expect_false(is.llist(1 %:% (2 %:% 3)))
 
   ones <- 1 %:% ones
-  lseq_maker. <- function(..., f) ..1 %:% do.call(lseq_maker., c(list(...)[-1], do.call(f, list(...)), f = f))
-  lseq <- lseq_maker.(0, f = function(x) x + 1)
+  lseq_maker <- function(..., f)
+    ..1 %:% do.call(lseq_maker, c(list(...)[-1], do.call(f, list(...)), f = f))
+  lseq <- lseq_maker(0, f = function(x) x + 1)
 
   expect_true(is.llist(ones))
   expect_true(is.llist(lseq))

@@ -20,6 +20,8 @@ lcycle(x)
 \item{x}{a lazy stream object}
 
 \item{f}{a generating function}
+
+\item{n}{replicating number for lreplicate()}
 }
 \description{
 create an infinit lazy stream form a finit lazy stream

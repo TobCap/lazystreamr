@@ -2,9 +2,12 @@
 % Please edit documentation in R/lconcat.r
 \name{lconcat}
 \alias{lconcat}
+\alias{lconcatMap}
 \title{Concat a lazy object}
 \usage{
 lconcat(x)
+
+lconcatMap(f, x)
 }
 \arguments{
 \item{x}{a lazy stream object}

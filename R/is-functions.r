@@ -40,7 +40,8 @@ is.llist <- function(x) {
     if (is.lpair(hd)) {
       hd2 <- ltail(hd)
       if (is.lpair(hd2)) {
-        identical(hd$tail, hd2$tail, ignore.environment = TRUE) || iter(ltail(hd2), ltail(tl))
+        identical(hd$tail, hd2$tail, ignore.environment = TRUE) ||
+          iter(ltail(hd2), ltail(tl))
       } else {
         lnull(hd2)
       }

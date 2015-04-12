@@ -18,7 +18,7 @@
 #' ## library("magrittr")
 #' ## liota() %>% ltake(10) %>% lfoldl1(`+`) # => 45
 #'
-#' unfoldr(0, function(x) if (x >= 10) quote(Nothing) else lcons(x, x+1))
+#' lunfoldr(0, function(x) if (x >= 10) quote(Nothing) else lcons(x, x+1))
 NULL
 
 
@@ -94,8 +94,8 @@ lscanr1 <- function(x, f) {
 
 #' @rdname lfold
 #' @export
-unfoldr <- function(x, g) {
+lunfoldr <- function(x, g) {
   tmp <- g(x)
   if (identical(tmp, quote(Nothing))) lempty
-  else lhead(tmp) %:% unfoldr(ltail(tmp), g)
+  else lhead(tmp) %:% lunfoldr(ltail(tmp), g)
 }

@@ -7,9 +7,9 @@
 \alias{print.lcons}
 \title{Print a lazy stream object}
 \usage{
-lprint(x, elem_max = 50, depth_max = 3)
+lprint(x, elem_max = 50, depth_max = 3, ...)
 
-\method{print}{lcons}(x, elem_max = 50, depth_max = 3)
+\method{print}{lcons}(x, elem_max = 50, depth_max = 3, ...)
 
 lforce(x, elem_max = 50, depth_max = 3)
 
@@ -21,6 +21,8 @@ lforce_llist(x, elem_max = 100)
 \item{elem_max}{maximum conversion size}
 
 \item{depth_max}{maximum conversion depth: drill down}
+
+\item{...}{for generic print()}
 }
 \description{
 print a lazy stream object

@@ -27,8 +27,11 @@ lmap <- function(x, f) {
 lmap2 <- function(x, ex) {
   expr <- substitute(ex)
 
-  f_mod <- tryCatch(is.function(ex),
-    error = function(e) eval(call("function", as.pairlist(alist(.=)), expr), parent.frame()))
+  f_mod <- tryCatch(
+    is.function(ex),
+    error = function(e) {
+      eval(call("function", as.pairlist(alist(.=)), expr), parent.frame())
+    })
 #
 #   f_mod <-
 #     if (expr[[1]] == "function" || length(expr) == 1 && expr != ".")
@@ -47,9 +50,12 @@ lmap2 <- function(x, ex) {
 
 #' @rdname llist_transformer
 #' @export
-lreverse <- function(x, acc = lempty) {
-  if (lnull(x)) acc
-  else lreverse(ltail(x), lhead(x) %:% acc)
+lreverse <- function(x) {
+  iter <- function(x, acc) {
+    if (lnull(x)) acc
+    else iter(ltail(x), lhead(x) %:% acc)
+  }
+  iter(x, acc = lempty)
 }
 
 #' @rdname llist_transformer

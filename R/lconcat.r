@@ -14,7 +14,7 @@ lconcat <- function(x) {
   else lhead(x) %++% lconcat(ltail(x))
 }
 
-#' @rdname lappend
+#' @rdname lconcat
 #' @export
 lconcatMap <- function(f, x) {
   if (lnull(x)) lempty

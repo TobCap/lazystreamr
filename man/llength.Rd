@@ -4,7 +4,7 @@
 \alias{llength}
 \title{Count length of finite lazy stream}
 \usage{
-llength(x, acc = 0)
+llength(x)
 }
 \arguments{
 \item{x}{a lazy stream}

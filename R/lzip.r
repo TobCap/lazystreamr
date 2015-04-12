@@ -46,15 +46,15 @@ lunzip2 <- function(x) {
 #   if (lnull(x)) return(llist(lempty, lempty))
 #   hd <- lhead(x); tl <- ltail(x)
 #   llist(hd%!!%0 %:% (lunzip2(tl) %!!% 0), hd%!!%1 %:% (lunzip2(tl) %!!% 1))
-  llist(lmap(x, function(xs) xs%!!%0), lmap(x, function(xs) xs%!!%1))
+  llist(lmap(x, function(xs) xs %!!% 0), lmap(x, function(xs) xs %!!% 1))
 }
 
 #' @rdname lzip
 #' @export
 lunzip <- function(x) {
   n <- llength(lhead(x))
-  args <- lapply(seq_len(n) - 1, function(k) {
-    bquote(lmap(x, function(xs) xs%!!%.(num)), list(num = k))
+  args <- lapply(seq_len(n) - 1L, function(k) {
+    bquote(lmap(x, function(xs) xs %!!% .(num)), list(num = k))
   })
 
   eval(as.call(c(quote(llist), args)), list(x = x), parent.frame())

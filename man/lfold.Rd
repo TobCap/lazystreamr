@@ -10,7 +10,7 @@
 \alias{lscanl1}
 \alias{lscanr}
 \alias{lscanr1}
-\alias{unfoldr}
+\alias{lunfoldr}
 \title{fold a lazy stream}
 \usage{
 lfoldl(x, f, init)
@@ -29,7 +29,7 @@ lscanr(x, f, init)
 
 lscanr1(x, f)
 
-unfoldr(x, g)
+lunfoldr(x, g)
 }
 \arguments{
 \item{x}{a lazy stream}
@@ -55,6 +55,6 @@ lscanl(1\%..\%10,`+`, 0) # => llist(0, 1, 3, 6, 10, 15, 21, 28, 36, 45, 55)
 ## library("magrittr")
 ## liota() \%>\% ltake(10) \%>\% lfoldl1(`+`) # => 45
 
-unfoldr(0, function(x) if (x >= 10) quote(Nothing) else lcons(x, x+1))
+lunfoldr(0, function(x) if (x >= 10) quote(Nothing) else lcons(x, x+1))
 }
 
