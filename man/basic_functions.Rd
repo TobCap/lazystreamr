@@ -23,7 +23,7 @@ lcar(x)
 lcdr(x)
 }
 \arguments{
-\item{x}{a lazy stream objects, which must not be `lempty`}
+\item{x}{a lazy stream objects, which must not be \code{lempty}}
 }
 \description{
 function names come from Haskell. \code{lcar} and \code{lcdr}
@@ -36,7 +36,7 @@ lhead(x) # => 1
 ltail(x) # => llist(2, 3)
 linit(x) # => llist(1, 2)
 llast(x) # => 3
-
+\dontrun{lhead(lempty)}
 tryCatch(lhead(lempty), error = function(e) print(e))
 # => <simpleError in lhead(lempty): empty list>
 }

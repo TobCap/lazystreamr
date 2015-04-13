@@ -3,7 +3,7 @@
 #' function names come from Haskell. \code{lcar} and \code{lcdr}
 #' are renames of \code{lhead} and \code{ltail} but not recommended to use
 #'  to avoid mixture of Haskell and Scheme.
-#' @param x a lazy stream objects, which must not be `lempty`
+#' @param x a lazy stream objects, which must not be \code{lempty}
 #' @name basic_functions
 #' @examples
 #' x <- llist(1, 2, 3)
@@ -12,6 +12,7 @@
 #' linit(x) # => llist(1, 2)
 #' llast(x) # => 3
 #'
+#' \dontrun{lhead(lempty)}
 #' tryCatch(lhead(lempty), error = function(e) print(e))
 #' # => <simpleError in lhead(lempty): empty list>
 NULL
