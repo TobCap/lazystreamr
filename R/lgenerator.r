@@ -48,6 +48,13 @@ larith <- function(start_, next_, end_ = Inf) {
   else start_ %:% larith(next_, 2L * next_ - start_, end_)
 }
 
+#' @rdname generators
+#' @export
+lrange <- function(start_ = 0, step_ = 1, end_ = Inf) {
+  if (start_ > end_) lempty
+  else start_ %:% lrange(start_ + step_, step_, end_)
+}
+
 
 # The generating function f(x0, x1, ..., xn-1) takes last n arguments and returns xn (next value).
 lseq_maker1 <- function(x, f) x %:% lseq_maker1(f(x), f)
