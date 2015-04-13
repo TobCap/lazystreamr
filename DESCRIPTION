@@ -1,10 +1,16 @@
 Package: lazystream
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Provides basic functions that handle lazy stream objects
 Version: 0.1
 Date: 2015-04-04
-Author: tob
-Maintainer: tob <tobakucapitalism@gmail.com>
-Description: there are functions that handle lazy stream objects
+Authors@R: person("tob", "", email = "tobakucapitalism@gmail.com",
+  role = c("aut", "cre"))
+Description:
+  This package provides basic functions that handle lazy stream objects.
+  Function names start with `l` and the remaining letters are from Haskell's
+  function name with a few exceptions.
+  The structure and coding mainly comes from Scheme and Haskell.
+  It is now unavoidable that the very long lazy stream causes stack-overflow
+  because R does not have tail call optimization for tail recursion.
 License: MIT + file LICENSE
 Suggests: testthat
