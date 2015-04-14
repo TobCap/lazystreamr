@@ -8,7 +8,7 @@
 #' @param step_ step value
 #' @param next_ next value
 #' @param end_ env value
-#' @param f a function for \code{lseq_maker}
+#' @param f a function for \code{lseq_gen}
 #' @param ... arguments for \code{f}
 #' @examples
 #' x <- 1 %..% 3
@@ -17,7 +17,9 @@
 #'
 #' liota(5) # => llist(0, 1, 2, 3, 4)
 #' larith(0, 2, 10) # => llist(0, 2, 4, 6, 8, 10)
-#' lseq_maker(0, 1, f = function(x, y) x + y) # => fibonacci sequence
+#' lseq_gen(0, 1, f = function(x, y) x + y) # => fibonacci sequence
+#' lseq_gen1(c(0, 1), f = function(xs) c(xs[2], xs[1] + xs[2]))
+#'
 NULL
 
 #' @rdname generators
@@ -57,18 +59,18 @@ lrange <- function(start_ = 0, step_ = 1, end_ = Inf) {
 
 
 # The generating function f(x0, x1, ..., xn-1) takes last n arguments and returns xn (next value).
-lseq_maker1 <- function(x, f) x %:% lseq_maker1(f(x), f)
-lseq_maker2 <- function(x0, x1, f) x0 %:% lseq_maker2(x1, f(x0, x1), f)
-lseq_maker3 <- function(x0, x1, x2, f)
-  x0 %:% lseq_maker3(x1, x2, f(x0, x1, x2), f)
+lseq_gen1 <- function(x, f) x %:% lseq_gen1(f(x), f)
+lseq_gen2 <- function(x0, x1, f) x0 %:% lseq_gen2(x1, f(x0, x1), f)
+lseq_gen3 <- function(x0, x1, x2, f)
+  x0 %:% lseq_gen3(x1, x2, f(x0, x1, x2), f)
 
 ## induce a rule from above patterns.
 #' @rdname generators
 #' @export
-lseq_maker <- function(..., f) {
+lseq_gen <- function(..., f) {
   ..1 %:%
     do.call(
-      lseq_maker,
+      lseq_gen,
       c(list(...)[-1], do.call(f, list(...), quote = TRUE), f = f),
       quote = TRUE)
 }
