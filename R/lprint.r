@@ -2,9 +2,10 @@
 #'
 #' @description print a lazy stream object
 #' @name lprint
-#' @param x: a lazy stream
-#' @param elem_max: maximum conversion size
-#' @param depth_max: maximum conversion depth: drill down
+#' @param x a lazy stream
+#' @param elem_max maximum conversion size
+#' @param depth_max maximum conversion depth: drill down
+#' @param ... for generic print()
 #' @examples
 #' # convert lazy object to R's list
 #' lforce(llist(1,2,3)) # => list(1,2,3))
@@ -13,10 +14,11 @@ NULL
 
 #' @rdname lprint
 #' @export
-lprint <- function(x, elem_max = 50, depth_max = 3) {
+lprint <- function(x, elem_max = 50, depth_max = 3, ...) {
   message("llist -> list, lcons -> list(car = , cdr = )")
-  dput(lforce(x, elem_max, depth_max))
+  dput(lforce(x, elem_max, depth_max), control = NULL)
 }
+
 
 #' @rdname lprint
 #' @export
@@ -36,22 +38,38 @@ lforce <- function(x, elem_max = 50, depth_max = 3) {
 
   iter <- function(x, elem_max, depth_max) {
     if (elem_max == 0 && !lnull(x)) {
-      message("elements are over ", elem_init, "; stop converting and the rest are omitted");
+      message(
+        "the number of elements are over ",
+        elem_init,
+        "; stop converting and the rest are omitted")
       return(quote(`... omitted rest elements`))
     } else if (depth_max == 0 && !lnull(x)) {
-      message("depth is over ", depth_init, "; stop converting and the rest are omitted");
+      message(
+        "depth is over ",
+        depth_init,
+        "; stop converting and the rest are omitted")
       return(list(quote(`... omitted deeper elements`)))
     }
 
-    if (lnull(x)) return(NULL)
-    else if (!is.lcons(x)) return(iter_normal(x, elem_max, depth_max))
-    else if (is.lpair(x)) return(list(car = iter(lhead(x), elem_init, depth_max - 1), cdr = iter(ltail(x), elem_init, depth_max - 1)))
+    if (lnull(x))
+      return(NULL)
+    else if (!is.lpair(x))
+      return(iter_normal(x, elem_max, depth_max))
+    else if (is.lpair_not_llist(x))
+      return(list(
+        car = iter(lhead(x), elem_init, depth_max - 1),
+        cdr = iter(ltail(x), elem_init, depth_max - 1)))
 
     hd <- lhead(x); tl <- ltail(x); n <- elem_max; d <- depth_max
 
-    if (is.lpair(hd)) c(list(list(car = iter(lhead(hd), elem_init, d - 1), cdr = iter(ltail(hd), elem_init, d - 1))), iter(tl, n - 1, d))
-    else if (is.llist(hd)) c(list(iter(hd, elem_init, d - 1)), iter(tl, n - 1, d))
-    else c(list(hd), iter(tl, n - 1, d))
+    if (is.lpair_not_llist(hd))
+      c(list(list(
+        car = iter(lhead(hd), elem_init, d - 1),
+        cdr = iter(ltail(hd), elem_init, d - 1))), iter(tl, n - 1, d))
+    else if (is.llist(hd))
+      c(list(iter(hd, elem_init, d - 1)), iter(tl, n - 1, d))
+    else
+      c(list(hd), iter(tl, n - 1, d))
   }
 
   iter(x, elem_max, depth_max)
@@ -67,7 +85,7 @@ lforce_llist <- function(x, elem_max = 100) {
     }
 
     if (lnull(x)) acc
-    else lforce_llist(ltail(x), elem_max - 1, c(acc, list(lhead(x))))
+    else iter(ltail(x), elem_max - 1, c(acc, list(lhead(x))))
   }
 
   if (exists("tco")) tco(iter)(x, elem_max, acc = NULL)

@@ -1,4 +1,4 @@
-#' Creates a lazy stream
+#' Creates a pair, the right value is promised (by making lambda)
 #'
 #' The idea and funcition names mainly comes from Scheme (Gauche) and Haskell. see References
 #' @references
@@ -12,9 +12,9 @@
 #'   \item \url{http://hackage.haskell.org/package/base-4.7.0.0/docs/Data-List.html}
 #' }
 #' @name lcons
-#' @param x car part
-#' @param y cdr part
-#' @return lazy cons of \code{x} and \code{y}.
+#' @param lhs car part
+#' @param rhs cdr part
+#' @return lazy cons of \code{lhs} and \code{rhs}.
 #' @examples
 #'
 #' # R's infix operator has left-associativity
@@ -35,14 +35,17 @@ NULL
 
 #' @rdname lcons
 #' @export
-`%:%` <- function(lhs, rhs) {
-  env_ <- parent.frame()
-  `class<-`(
-    eval(
-      bquote(
-        pairlist(head = .(x), tail = function() .(y)),
-        list(x = substitute(lhs), y = substitute(rhs))), envir = env_), "lcons")
+`%:%` <- lcons <- function(lhs, rhs) {
+  # the symbol, `rhs`, is referenced by is.llist()
+  `class<-`(pairlist(head = lhs, tail = function() rhs), "lcons")
 }
+# `%:%` <- function(lhs, rhs) {
+#   caller <- bquote(
+#     pairlist(head = .(x), tail = function() .(y)),
+#     list(x = substitute(lhs), y = substitute(rhs)))
+#   `class<-`(eval(caller, envir = parent.frame()), "lcons")
+# }
+
 
 #' @rdname lcons
 #' @export
