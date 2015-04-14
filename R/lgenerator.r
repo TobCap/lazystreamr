@@ -18,7 +18,7 @@
 #' liota(5) # => llist(0, 1, 2, 3, 4)
 #' larith(0, 2, 10) # => llist(0, 2, 4, 6, 8, 10)
 #' lseq_gen(0, 1, f = function(x, y) x + y) # => fibonacci sequence
-#' lseq_gen1(c(0, 1), f = function(xs) c(xs[2], xs[1] + xs[2]))
+#' lazystream:::lseq_gen1(list(0, 1), f = function(xs) list(xs[[2]], xs[[1]]+ xs[[2]]))
 #'
 NULL
 
@@ -68,9 +68,5 @@ lseq_gen3 <- function(x0, x1, x2, f)
 #' @rdname generators
 #' @export
 lseq_gen <- function(..., f) {
-  ..1 %:%
-    do.call(
-      lseq_gen,
-      c(list(...)[-1], do.call(f, list(...), quote = TRUE), f = f),
-      quote = TRUE)
+  ..1 %:% do.call(lseq_gen, c(list(...)[-1], f(...), f = f), quote = TRUE)
 }
