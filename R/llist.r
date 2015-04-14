@@ -14,6 +14,9 @@
 #' # is.llist(as.llist(x)) is ALWAYS TRUE
 #' as.llist(1:3) # => llist(1,2,3)
 #'
+#' llist(1, list(2, 3))
+#' # => llist(1, list(2,3))
+#' # => only the first layer is converted
 NULL
 
 #' @rdname llist
