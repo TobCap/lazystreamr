@@ -35,14 +35,17 @@ NULL
 
 #' @rdname lcons
 #' @export
-`%:%` <- function(lhs, rhs) {
-  env_ <- parent.frame()
-  `class<-`(
-    eval(
-      bquote(
-        pairlist(head = .(x), tail = function() .(y)),
-        list(x = substitute(lhs), y = substitute(rhs))), envir = env_), "lcons")
+`%:%` <- lcons <- function(lhs, rhs) {
+  # the symbol, `rhs`, is referenced by is.llist()
+  `class<-`(pairlist(head = lhs, tail = function() rhs), "lcons")
 }
+# `%:%` <- function(lhs, rhs) {
+#   caller <- bquote(
+#     pairlist(head = .(x), tail = function() .(y)),
+#     list(x = substitute(lhs), y = substitute(rhs)))
+#   `class<-`(eval(caller, envir = parent.frame()), "lcons")
+# }
+
 
 #' @rdname lcons
 #' @export
