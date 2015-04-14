@@ -5,22 +5,27 @@
 \alias{lunzip2}
 \alias{lzip}
 \alias{lzipWith}
+\alias{lzipWith2}
 \title{Zipping and unzipping a lazy stream}
 \usage{
+lzipWith2(f, x, y)
+
 lzipWith(f, ...)
 
 lzip(...)
 
-lunzip2(x)
+lunzip2(xs)
 
-lunzip(x)
+lunzip(xs)
 }
 \arguments{
 \item{f}{zipping function}
 
+\item{x,y}{llist}
+
 \item{...}{lazy stream objects}
 
-\item{x}{llist of llist}
+\item{xs}{llist of llist}
 }
 \description{
 When zipping, if the size of arguments are different,

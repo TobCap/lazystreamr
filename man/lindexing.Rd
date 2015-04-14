@@ -3,9 +3,12 @@
 \name{lindexing}
 \alias{\%!!\%}
 \alias{lindexing}
+\alias{lref}
 \title{Extract the nth elements (starting from 0)}
 \usage{
 x \%!!\% n
+
+lref(x, n)
 }
 \arguments{
 \item{x}{a lazy stream object}

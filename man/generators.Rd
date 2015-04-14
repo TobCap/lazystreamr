@@ -5,7 +5,8 @@
 \alias{generators}
 \alias{larith}
 \alias{liota}
-\alias{lseq_maker}
+\alias{lrange}
+\alias{lseq_gen}
 \title{Lazy stream generators}
 \usage{
 lhs \%..\% rhs
@@ -14,7 +15,9 @@ liota(n = Inf, start_ = 0L, step_ = 1L)
 
 larith(start_, next_, end_ = Inf)
 
-lseq_maker(..., f)
+lrange(start_ = 0, step_ = 1, end_ = Inf)
+
+lseq_gen(..., f)
 }
 \arguments{
 \item{lhs}{numeric which is converted to integer}
@@ -33,7 +36,7 @@ lseq_maker(..., f)
 
 \item{...}{arguments for \code{f}}
 
-\item{f}{a function for \code{lseq_maker}}
+\item{f}{a function for \code{lseq_gen}}
 }
 \description{
 generate a lazy stream
@@ -45,6 +48,7 @@ z <- x \%++\% y # => llist(1, 2, 3, 4, 5)
 
 liota(5) # => llist(0, 1, 2, 3, 4)
 larith(0, 2, 10) # => llist(0, 2, 4, 6, 8, 10)
-lseq_maker(0, 1, f = function(x, y) x + y) # => fibonacci sequence
+lseq_gen(0, 1, f = function(x, y) x + y) # => fibonacci sequence
+lazystream:::lseq_gen1(list(0, 1), f = function(xs) list(xs[[2]], xs[[1]]+ xs[[2]]))
 }
 

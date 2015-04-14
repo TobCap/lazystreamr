@@ -29,5 +29,9 @@ lhead(z) # => 1
 # Convert R's vector (include R's list) to llist
 # is.llist(as.llist(x)) is ALWAYS TRUE
 as.llist(1:3) # => llist(1,2,3)
+
+llist(1, list(2, 3))
+# => llist(1, list(2,3))
+# => only the first layer is converted
 }
 

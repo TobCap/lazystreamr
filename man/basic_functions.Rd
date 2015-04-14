@@ -36,6 +36,7 @@ lhead(x) # => 1
 ltail(x) # => llist(2, 3)
 linit(x) # => llist(1, 2)
 llast(x) # => 3
+
 \dontrun{lhead(lempty)}
 tryCatch(lhead(lempty), error = function(e) print(e))
 # => <simpleError in lhead(lempty): empty list>
