@@ -14,3 +14,7 @@ NULL
   if (n < 0) stop("negative index")
   if (n == 0) lhead(x) else ltail(x) %!!% (n - 1)
 }
+
+#' @rdname lindexing
+#' @export
+lref <- `%!!%`
