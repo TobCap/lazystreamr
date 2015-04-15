@@ -18,8 +18,8 @@
 #'
 #' Reduce(~~..1 + ..2, 1:10)
 #' Filter(~~ ..%%3==0, 1:10)
-#
-#' # tilda's role remains.
+#'
+#' # A tilda's role remains.
 #' ~ speed + dist
 #' lm(speed ~ dist, data = cars)
 
