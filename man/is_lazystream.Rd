@@ -2,6 +2,7 @@
 % Please edit documentation in R/is-functions.r
 \name{is_lazystream}
 \alias{is.llist}
+\alias{is.llist_atomic_maybe}
 \alias{is.lpair}
 \alias{is.lpair_not_llist}
 \alias{is_lazystream}
@@ -12,6 +13,8 @@ is.lpair(x)
 is.lpair_not_llist(x)
 
 is.llist(x)
+
+is.llist_atomic_maybe(xs, depth = 10)
 }
 \arguments{
 \item{x}{a lcons object}
@@ -40,5 +43,9 @@ is.lpair(lempty) # => FALSE
  ones <- 1 \%:\% ones
  is.llist(ones) # => TRUE # circular reference
  is.llist(1 \%..\% Inf) #=> TRUE # the same function
+
+ is.llist_atomic_maybe(1 \%..\% 10) # => TRUE
+ is.llist_atomic_maybe(1 \%..\% 11) # => structure(TRUE, class = "maybe")
+ is.llist_atomic_maybe(1 \%..\% Inf) # => structure(TRUE, class = "maybe")
 }
 

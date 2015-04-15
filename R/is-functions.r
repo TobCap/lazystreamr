@@ -22,7 +22,9 @@
 #'  is.llist(ones) # => TRUE # circular reference
 #'  is.llist(1 %..% Inf) #=> TRUE # the same function
 #'
-#'
+#'  is.llist_atomic_maybe(1 %..% 10) # => TRUE
+#'  is.llist_atomic_maybe(1 %..% 11) # => structure(TRUE, class = "maybe")
+#'  is.llist_atomic_maybe(1 %..% Inf) # => structure(TRUE, class = "maybe")
 NULL
 
 #' @rdname is_lazystream
@@ -47,4 +49,16 @@ is.llist <- function(x) {
     substitute(rhs, environment(x$tail)),
     substitute(rhs, environment(tl$tail))) ||
   is.llist(tl)
+}
+
+#' @rdname is_lazystream
+#' @export
+is.llist_atomic_maybe <- function(xs, depth = 10) {
+  maybe <- NULL
+  iter <- function(xs, depth) {
+    if (lnull(xs)) TRUE
+    else if (depth == 0) {maybe <<- "maybe"; TRUE}
+    else is.atomic(lhead(xs)) && iter(ltail(xs), depth - 1)
+  }
+  `class<-`(iter(xs, depth), maybe)
 }

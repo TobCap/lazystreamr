@@ -32,4 +32,12 @@ test_that("test", {
   expect_false(is.llist(1 %:% 2))
   expect_false(is.llist(1))
   expect_false(is.llist("test"))
+
+  expect_true(is.llist_atomic_maybe(1 %..% 10))
+  expect_identical(
+    is.llist_atomic_maybe(1 %..% 11),
+    structure(TRUE, class = "maybe"))
+  expect_identical(
+    is.llist_atomic_maybe(liota()),
+    structure(TRUE, class = "maybe"))
 })
