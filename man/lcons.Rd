@@ -25,7 +25,7 @@ The idea and funcition names mainly comes from Scheme (Gauche) and Haskell. see 
 # run
 1 \%:\% (2 \%:\% (3 \%:\% lempty))
 
-# can be parsed but not meaningful to interpret
+# can be parsed but not llist
 1 \%:\% 2 \%:\% 3 \%:\% lempty
 
 # repeat 1L as an infinit sequence

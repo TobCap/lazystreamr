@@ -12,7 +12,7 @@ test_that("test", {
     lforce(lscanl1(liota(10), `+`))
   )
   expect_equal(
-    f(lunfoldr(0, function(x) if (x >= 10) quote(Nothing) else lcons(x, x + 1))),
+    f(lunfold_haskell(0, function(x) if (x >= 10) lempty else lcons(x, x + 1))),
     f(liota(10)))
 
 })

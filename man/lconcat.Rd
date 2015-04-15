@@ -7,7 +7,7 @@
 \usage{
 lconcat(x)
 
-lconcatMap(f, x)
+lconcatMap(x, f)
 }
 \arguments{
 \item{x}{a lazy stream object}
