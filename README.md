@@ -1,9 +1,11 @@
 # lazystreamr
 
 ``` r
+devtools::install_github("tobcap/lazystreamr")
 library("lazystreamr")
-# Code of fibonacci sequence in lazystreamr pretty resembles that of Hakell's .
-# https://wiki.haskell.org/The_Fibonacci_sequence#Canonical_zipWith_implementation
+
+# Compare to Haskell's code
+# https://wiki.haskell.org/The_Fibonacci_sequence#Canonical_zipWith_implementation])
 lfib1 <- (0 %:% (1 %:% lzipWith('+', lfib1, ltail(lfib1))))
 ltake(lfib1, 30) # lfib1 %>% ltake(30) # with magrittr's %>%
 
@@ -25,10 +27,10 @@ devtools::install_github("tobcap/lazystreamr")
 
 
 ## Motivation
-You may or not know that R is internally based on scheme's concepts such that
+You may or not know that R is internally based on scheme's concepts such as
 language object, LANG SEXP, comprise of 'cons cell'. This turned on my idea that
 lazy stream defined in [SRFI-45](http://srfi.schemers.org/srfi-45/srfi-45.html)
-seemed to be able to transelat to R.
+seemed to be able to transelate to R.
 
 
 ## Concept
@@ -47,11 +49,11 @@ promise (using closure).
 with idea, functions that take lambda and data for arguments are defined that data
 object set as the first argument.
 * There is tuple class in Haskell but not in R. So all the tuple type in Haskell's
-context converted lcons in lazystreamr's context.
+context is converted to lcons in lazystreamr's context.
 
 ## Usage
 ``` r
-  # Construct a lazystream
+  # Construct a lazy stream object
   l1 <- lcons(1, lcons(2, lcons(3, lempty)))
   l2 <- (1 %:% (2 %:% (3 %:% lempty))) # R's binary operator is left-associatity
   l3 <- llist(1, 2, 3)
