@@ -1,4 +1,4 @@
 library("testthat")
-library("lazystream")
+library("lazystreamr")
 
-test_check("lazystream")
+test_check("lazystreamr")

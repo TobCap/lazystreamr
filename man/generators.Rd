@@ -7,6 +7,9 @@
 \alias{liota}
 \alias{lrange}
 \alias{lseq_gen}
+\alias{lseq_gen1}
+\alias{lseq_gen2}
+\alias{lseq_gen3}
 \title{Lazy stream generators}
 \usage{
 lhs \%..\% rhs
@@ -16,6 +19,12 @@ liota(n = Inf, start_ = 0L, step_ = 1L)
 larith(start_, next_, end_ = Inf)
 
 lrange(start_ = 0, step_ = 1, end_ = Inf)
+
+lseq_gen1(x0, f)
+
+lseq_gen2(x0, x1, f)
+
+lseq_gen3(x0, x1, x2, f)
 
 lseq_gen(..., f)
 }
@@ -34,9 +43,11 @@ lseq_gen(..., f)
 
 \item{end_}{env value}
 
-\item{...}{arguments for \code{f}}
+\item{x0,x1,x2}{initial values for generating function \code{f}}
 
 \item{f}{a function for \code{lseq_gen}}
+
+\item{...}{arguments for \code{f}}
 }
 \description{
 generate a lazy stream
@@ -49,6 +60,6 @@ z <- x \%++\% y # => llist(1, 2, 3, 4, 5)
 liota(5) # => llist(0, 1, 2, 3, 4)
 larith(0, 2, 10) # => llist(0, 2, 4, 6, 8, 10)
 lseq_gen(0, 1, f = function(x, y) x + y) # => fibonacci sequence
-lazystream:::lseq_gen1(list(0, 1), f = function(xs) list(xs[[2]], xs[[1]]+ xs[[2]]))
+lseq_gen1(list(0, 1), f = function(xs) list(xs[[2]], xs[[1]]+ xs[[2]]))
 }
 

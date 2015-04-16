@@ -9,6 +9,7 @@
 #' @param next_ next value
 #' @param end_ env value
 #' @param f a function for \code{lseq_gen}
+#' @param x0,x1,x2 initial values for generating function \code{f}
 #' @param ... arguments for \code{f}
 #' @examples
 #' x <- 1 %..% 3
@@ -18,8 +19,7 @@
 #' liota(5) # => llist(0, 1, 2, 3, 4)
 #' larith(0, 2, 10) # => llist(0, 2, 4, 6, 8, 10)
 #' lseq_gen(0, 1, f = function(x, y) x + y) # => fibonacci sequence
-#' lazystream:::lseq_gen1(list(0, 1), f = function(xs) list(xs[[2]], xs[[1]]+ xs[[2]]))
-#'
+#' lseq_gen1(list(0, 1), f = function(xs) list(xs[[2]], xs[[1]]+ xs[[2]]))
 NULL
 
 #' @rdname generators
@@ -58,9 +58,16 @@ lrange <- function(start_ = 0, step_ = 1, end_ = Inf) {
 }
 
 
-# The generating function f(x0, x1, ..., xn-1) takes last n arguments and returns xn (next value).
-lseq_gen1 <- function(x, f) x %:% lseq_gen1(f(x), f)
+#' @rdname generators
+#' @export
+lseq_gen1 <- function(x0, f) x0 %:% lseq_gen1(f(x0), f)
+
+#' @rdname generators
+#' @export
 lseq_gen2 <- function(x0, x1, f) x0 %:% lseq_gen2(x1, f(x0, x1), f)
+
+#' @rdname generators
+#' @export
 lseq_gen3 <- function(x0, x1, x2, f)
   x0 %:% lseq_gen3(x1, x2, f(x0, x1, x2), f)
 
@@ -68,5 +75,6 @@ lseq_gen3 <- function(x0, x1, x2, f)
 #' @rdname generators
 #' @export
 lseq_gen <- function(..., f) {
+  # The generating function f(x0, x1, ..., xn-1) takes last n arguments and returns xn (next value).
   ..1 %:% do.call(lseq_gen, c(list(...)[-1], f(...), f = f), quote = TRUE)
 }
