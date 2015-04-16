@@ -5,7 +5,10 @@
 #' @param x a lazy stream
 #' @param f function who must takes two areguments
 #' @param init initial value if needed
-#' @param g function that takes one argument and returns lcons or quote(Nothing)
+#' @param g a function that takes one argument and returns lcons or lempty
+#' @param f_pred a predicate function for unfold
+#' @param f_map a mapping function for unfold
+#' @param f_gen a generating function for unfold
 #' @name lfold
 #' @examples
 #' lfoldl(1%..%10, `+`, 0) # => 55
@@ -18,7 +21,9 @@
 #' ## library("magrittr")
 #' ## liota() %>% ltake(10) %>% lfoldl1(`+`) # => 45
 #'
-#' lunfoldr(0, function(x) if (x >= 10) quote(Nothing) else lcons(x, x+1))
+#' lunfold_haskell(0, function(x) if (x >= 10) lempty else lcons(x, x + 1))
+#' lunfoldl(1, function(x) x > 10, function(x) x ^ 2, function(x) x + 1)
+
 NULL
 
 
@@ -94,8 +99,26 @@ lscanr1 <- function(x, f) {
 
 #' @rdname lfold
 #' @export
-lunfoldr <- function(x, g) {
+lunfold_haskell <- function(x, g) {
+  # g() must return pure lcons object, not llist object
   tmp <- g(x)
-  if (identical(tmp, quote(Nothing))) lempty
-  else lhead(tmp) %:% lunfoldr(ltail(tmp), g)
+  if (lnull(tmp)) lempty
+  else lhead(tmp) %:% lunfold_haskell(ltail(tmp), g)
+}
+
+#' @rdname lfold
+#' @export
+lunfoldl <- function(x, f_pred, f_map, f_gen) {
+  if (f_pred(x)) lempty
+  else f_map(x) %:% lunfoldl(f_gen(x), f_pred, f_map, f_gen)
+}
+
+#' @rdname lfold
+#' @export
+lunfoldr <- function(x, f_pred, f_map, f_gen) {
+  iter <- function(x, acc) {
+    if (f_pred(x)) acc
+    else iter(f_gen(x), lcons(f_map(x), acc))
+  }
+  iter(x, lempty)
 }

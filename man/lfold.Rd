@@ -10,6 +10,8 @@
 \alias{lscanl1}
 \alias{lscanr}
 \alias{lscanr1}
+\alias{lunfold_haskell}
+\alias{lunfoldl}
 \alias{lunfoldr}
 \title{fold a lazy stream}
 \usage{
@@ -29,7 +31,11 @@ lscanr(x, f, init)
 
 lscanr1(x, f)
 
-lunfoldr(x, g)
+lunfold_haskell(x, g)
+
+lunfoldl(x, f_pred, f_map, f_gen)
+
+lunfoldr(x, f_pred, f_map, f_gen)
 }
 \arguments{
 \item{x}{a lazy stream}
@@ -38,7 +44,13 @@ lunfoldr(x, g)
 
 \item{init}{initial value if needed}
 
-\item{g}{function that takes one argument and returns lcons or quote(Nothing)}
+\item{g}{a function that takes one argument and returns lcons or lempty}
+
+\item{f_pred}{a predicate function for unfold}
+
+\item{f_map}{a mapping function for unfold}
+
+\item{f_gen}{a generating function for unfold}
 }
 \description{
 The order of arguments position is different from that of Haskell's
@@ -55,6 +67,7 @@ lscanl(1\%..\%10,`+`, 0) # => llist(0, 1, 3, 6, 10, 15, 21, 28, 36, 45, 55)
 ## library("magrittr")
 ## liota() \%>\% ltake(10) \%>\% lfoldl1(`+`) # => 45
 
-lunfoldr(0, function(x) if (x >= 10) quote(Nothing) else lcons(x, x+1))
+lunfold_haskell(0, function(x) if (x >= 10) lempty else lcons(x, x + 1))
+lunfoldl(1, function(x) x > 10, function(x) x ^ 2, function(x) x + 1)
 }
 

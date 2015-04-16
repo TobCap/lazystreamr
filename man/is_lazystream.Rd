@@ -2,6 +2,7 @@
 % Please edit documentation in R/is-functions.r
 \name{is_lazystream}
 \alias{is.llist}
+\alias{is.llist_atomic_maybe}
 \alias{is.lpair}
 \alias{is.lpair_not_llist}
 \alias{is_lazystream}
@@ -12,33 +13,48 @@ is.lpair(x)
 is.lpair_not_llist(x)
 
 is.llist(x)
+
+is.llist_atomic_maybe(x, depth = 10)
 }
 \arguments{
 \item{x}{a lcons object}
+
+\item{depth}{for is.llist_atomic_maybe's}
 }
 \description{
-is functions
+Check if an object is lcons class.
 }
 \details{
-is.llist(x) is TRUE if \code{x} is lempty or ltail(x) is llist.
- is.ilist(x) is TRUE for infinit-stream if ltail(x) and ltail(ltail(x))
-  is the same object (circular reference) or the same function except its environment.
+\code{lcons()} attach "lcons" class for output. \code{is.lpair()} simply
+checks this attribute.
+ \code{is.llist(x)} returns \code{TRUE} if \code{x} is \code{lempty} or
+  \code{ltail(x)} is llist, or \code{ltail(x)} and
+\code{ltail(ltail(x))} is the same expression in cdr part (promise part,
+ i.e., function body) for infinit-stream.
+ is.lpair_not_list(x) retuns TRUE if  \code{x} is lcons but not llist.
+\code{is.llist_atomic_maybe(x)} checks if lhead(x) is R's atomic object
+for several loops. If the checking arrives its limit loop, this returns
+\code{structure(TRUE, class = "maybe")}. The default limit is ten.
 }
 \examples{
 is.lpair(lempty) # => FALSE
- is.lpair_not_llist(lempty) # => FALSE
- is.llist(lempty) # => TRUE
+is.lpair_not_llist(lempty) # => FALSE
+is.llist(lempty) # => TRUE
 
- is.lpair(1 \%:\% 2) # => TRUE
- is.lpair_not_llist(1 \%:\% 2) # => TRUE
- is.llist(1 \%:\% 2) # => FALSE
+is.lpair(1 \%:\% 2) # => TRUE
+is.lpair_not_llist(1 \%:\% 2) # => TRUE
+is.llist(1 \%:\% 2) # => FALSE
 
- is.lpair(1 \%..\% 2) # => TRUE
- is.lpair_not_llist(1 \%..\% 2) # => FALSE
- is.llist(1 \%..\% 2) # => TRUE
+is.lpair(1 \%..\% 2) # => TRUE
+is.lpair_not_llist(1 \%..\% 2) # => FALSE
+is.llist(1 \%..\% 2) # => TRUE
 
- ones <- 1 \%:\% ones
- is.llist(ones) # => TRUE # circular reference
- is.llist(1 \%..\% Inf) #=> TRUE # the same function
+ones <- 1 \%:\% ones
+is.llist(ones) # => TRUE # circular reference
+is.llist(1 \%..\% Inf) #=> TRUE #
+
+is.llist_atomic_maybe(1 \%..\% 10) # => TRUE
+is.llist_atomic_maybe(1 \%..\% 11) # => structure(TRUE, class = "maybe")
+is.llist_atomic_maybe(1 \%..\% Inf) # => structure(TRUE, class = "maybe")
 }
 

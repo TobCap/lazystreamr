@@ -6,6 +6,6 @@ test_that("test", {
     lforce(1 %..% 6))
 
   expect_equal(
-    lforce(lconcatMap(function(x) llist(x, 10 * x), llist(1, 2, 3))),
+    lforce(lconcatMap(llist(1, 2, 3), function(x) llist(x, 10 * x))),
     lforce(llist(1, 10, 2, 20, 3, 30)))
 })
