@@ -32,7 +32,7 @@ llist_lazy <- function(...) {
   e <- parent.frame()
   expr <- as.list(substitute((...)))[-1]
   if (length(expr) == 0) lempty
-  else eval(expr[[1]], envir = e) %:% do.call(llist_lazy, c(expr[-1], e = e), quote = TRUE)
+  else eval(expr[[1]], envir = e) %:% do.call(llist_lazy, expr[-1])
 }
 
 #' @rdname llist
