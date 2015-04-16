@@ -55,7 +55,7 @@ context is converted to lcons in lazystreamr's context.
 ``` r
   # Construct a lazy stream object
   l1 <- lcons(1, lcons(2, lcons(3, lempty)))
-  l2 <- (1 %:% (2 %:% (3 %:% lempty))) # R's binary operator is left-associatity
+  l2 <- (1 %:% (2 %:% (3 %:% lempty))) # need `(` because R's infix operator has left-associativity.
   l3 <- llist(1, 2, 3)
   l4 <- llist_lazy(1, 2, 3) # not evaluated 2, 3 at first
   l5 <- 1 %..% 3
