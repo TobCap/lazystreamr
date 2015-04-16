@@ -2,12 +2,13 @@
 
 ``` r
 library("lazystreamr")
-# fibonacci sequence seems to resemble
+# Code of fibonacci sequence in lazystreamr pretty resembles that of Hakell's .
+# https://wiki.haskell.org/The_Fibonacci_sequence#Canonical_zipWith_implementation
 lfib1 <- (0 %:% (1 %:% lzipWith('+', lfib1, ltail(lfib1))))
 ltake(lfib1, 30) # lfib1 %>% ltake(30) # with magrittr's %>%
 
-# double-tilda create an anonymous function with dotted-placeholder
-lfib2 <- lseq_gen(0, 1, ~~ ..1 +..2)
+# Double-tilda creates an anonymous function with dotted-placeholder
+lfib2 <- lseq_gen(0, 1, f = ~~ ..1 +..2)
 ltake(lfib2, 30)
 
 ltake(lmap(liota(), ~~ .. ^ 2), 10)
@@ -52,18 +53,18 @@ context converted lcons in lazystreamr's context.
 ``` r
   # Construct a lazystream
   l1 <- lcons(1, lcons(2, lcons(3, lempty)))
-  l2 <- (1 %:% (2 %:% (3 %:% lempty) # R's binary operator is left-associatity
+  l2 <- (1 %:% (2 %:% (3 %:% lempty))) # R's binary operator is left-associatity
   l3 <- llist(1, 2, 3)
-  l4 <- 1 %..% 3
-  l5 <- as.llist(1:3)
-  l6 <- as.llist_lazy(1:3) # not evaluated 1:3 at first
+  l4 <- llist_lazy(1, 2, 3) # not evaluated 2, 3 at first
+  l5 <- 1 %..% 3
+  l6 <- as.llist(1:3)
 ```
 
 ``` r
   # Infinit seq
   ones1 <- 1 %:% ones
   ones2 <- lrepeat(1)
-  ones3 <- lseq_gen(1, function(x) x)
+  ones3 <- lseq_gen(1, f = function(x) x)
 ```
 
 ``` r
@@ -79,7 +80,7 @@ context converted lcons in lazystreamr's context.
   ltake(l, 10)
   ldrop(l, 10)
   ltakeWhile(l, function(x) x < 10)
-  lskipWhile(l, function(x) x < 10)
+  ldropWhile(l, function(x) x < 10)
 ```
 
 ``` r
@@ -89,11 +90,11 @@ context converted lcons in lazystreamr's context.
   ~~ ..2 / ..1
 
   ltakeWhile(liota(), ~~ .. < 10)
-  lskipWhile(liota(), ~~ .. < 10)
+  ldropWhile(liota(), ~~ .. < 10)
   lmap(1 %..% 10, ~~ .. ^ 2)
   lfoldl(1 %..% 10, ~~ ..1 + ..2, 0)
   lseq_gen(0, 1, ~~ ..1 + ..2)
-  lunfoldl(0, ~~ .. > 10, ~~ )
+  lunfoldl(0, ~~ .. > 10, ~~ .. ^ 2, ~~ .. + 1)
 
   # formula works
   speed ~ dist
@@ -113,20 +114,20 @@ context converted lcons in lazystreamr's context.
   lfoldr(liota(10), function(x, y) x + y, 0)
 
   liota(10) %>% lfoldl1(~~ ..1 + ..2)
-  liota(10) %>% lfoldlr(~~ ..1 + ..2)
+  liota(10) %>% lfoldr1(~~ ..1 + ..2)
 
   liota(10) %>% lfoldl1(~~ paste0("(", ..1, "+", ..2, ")"))
-  liota(10) %>% lfoldlr(~~ paste0("(", ..1, "+", ..2, ")"))
+  liota(10) %>% lfoldr1(~~ paste0("(", ..1, "+", ..2, ")"))
 ```
 
 ``` r
 ## https://www.haskell.org/ see top example
   sieve <- function(y) {
     p <- lhead(y); xs <- ltail(y)
-    p %:% sieve(lfilter(function(x) x %% p != 0, xs))
+    p %:% sieve(lfilter(xs, ~~ .. %% p != 0))
   }
   lprimes <- sieve(2%..%Inf)
-  ltake(100, lprimes)
+  ltake(lprimes, 100)
 ```
 
 ## References
