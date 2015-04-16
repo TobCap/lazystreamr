@@ -1,4 +1,4 @@
-Package: lazystream
+Package: lazystreamr
 Type: Package
 Title: Provides basic functions that handle lazy stream objects
 Version: 0.1
