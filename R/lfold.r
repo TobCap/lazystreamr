@@ -5,7 +5,10 @@
 #' @param x a lazy stream
 #' @param f function who must takes two areguments
 #' @param init initial value if needed
-#' @param g function that takes one argument and returns lcons or quote(Nothing)
+#' @param g a function that takes one argument and returns lcons or lempty
+#' @param f_pred a predicate function for unfold
+#' @param f_map a mapping function for unfold
+#' @param f_gen a generating function for unfold
 #' @name lfold
 #' @examples
 #' lfoldl(1%..%10, `+`, 0) # => 55
@@ -97,6 +100,7 @@ lscanr1 <- function(x, f) {
 #' @rdname lfold
 #' @export
 lunfold_haskell <- function(x, g) {
+  # g() must return pure lcons object, not llist object
   tmp <- g(x)
   if (lnull(tmp)) lempty
   else lhead(tmp) %:% lunfold_haskell(ltail(tmp), g)

@@ -7,11 +7,10 @@
 #'  If you want to make an anoymous function which has more than one argument,
 #'  the placeholde should be `..1`, `..2`, and so on. See examples.
 #'  Single tilda works as if it is normaly used but it takes a bit calulation process.
-
-#' @name doubletilda
+#'
+#' @name double-tilda
 #' @param ... expression starts with `~~`
 #' @param env_ environment where ... is evaluated
-#' @usage ~~ "any valid syntax with a symbol .."
 #' @examples
 #' ~~ .. + 1 # => function(._) ._ + 1
 #' ~~ ..1 + ..2 # => function(._1, ._2) ._1 + ._2
@@ -22,7 +21,10 @@
 #' # A tilda's role remains.
 #' ~ speed + dist
 #' lm(speed ~ dist, data = cars)
+NULL
 
+#' @rdname double-tilda
+#' @export
 `~` <- function(..., env_ = parent.frame()) {
 
   dots <- as.list(substitute((...)))[-1]

@@ -44,7 +44,13 @@ lunfoldr(x, f_pred, f_map, f_gen)
 
 \item{init}{initial value if needed}
 
-\item{g}{function that takes one argument and returns lcons or quote(Nothing)}
+\item{g}{a function that takes one argument and returns lcons or lempty}
+
+\item{f_pred}{a predicate function for unfold}
+
+\item{f_map}{a mapping function for unfold}
+
+\item{f_gen}{a generating function for unfold}
 }
 \description{
 The order of arguments position is different from that of Haskell's
