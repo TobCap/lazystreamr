@@ -5,7 +5,7 @@ devtools::install_github("tobcap/lazystreamr")
 library("lazystreamr")
 
 # Compare to Haskell's code
-# https://wiki.haskell.org/The_Fibonacci_sequence#Canonical_zipWith_implementation])
+# https://wiki.haskell.org/The_Fibonacci_sequence#Canonical_zipWith_implementation
 lfib1 <- (0 %:% (1 %:% lzipWith('+', lfib1, ltail(lfib1))))
 ltake(lfib1, 30) # lfib1 %>% ltake(30) # with magrittr's %>%
 
