@@ -7,7 +7,9 @@ library("lazystreamr")
 # Compare to Haskell's code
 # https://wiki.haskell.org/The_Fibonacci_sequence#Canonical_zipWith_implementation
 lfib1 <- (0 %:% (1 %:% lzipWith('+', lfib1, ltail(lfib1))))
-ltake(lfib1, 30) # lfib1 %>% ltake(30) # with magrittr's %>%
+ltake(lfib1, 30)
+# lfib1 %>% ltake(30) # with magrittr's %>%
+# lfib1 %>>% ltake(30) # with pipeR's %>>%
 
 # Double-tilda creates an anonymous function with dotted-placeholder
 lfib2 <- lseq_gen(0, 1, f = ~~ ..1 +..2)
@@ -15,7 +17,8 @@ ltake(lfib2, 30)
 
 ltake(lmap(liota(), ~~ .. ^ 2), 10)
 ## great readability with pipe-operator
-liota() %>% lmap(~~ .. ^ 2) %>% ltake(10)
+# liota() %>% lmap(~~ .. ^ 2) %>% ltake(10)
+# liota() %>>% lmap(~~ .. ^ 2) %>>% ltake(10)
 ```
 
 ## Installation
@@ -108,18 +111,26 @@ context is converted to lcons in lazystreamr's context.
   # Map, Filter, Fold
   lmap(liota(), function(x) x ^ 2)
   liota() %>% lmap(~~ .. ^ 2)
+  liota() %>>% lmap(~~ .. ^ 2)
 
   lfilter(liota(), function(x) x %% 2 == 0)
   liota() %>% lfilter(~~ .. %% 2 == 0)
+  liota() %>>% lfilter(~~ .. %% 2 == 0)
 
   lfoldl(liota(10), function(x, y) x + y, 0)
   lfoldr(liota(10), function(x, y) x + y, 0)
 
   liota(10) %>% lfoldl1(~~ ..1 + ..2)
   liota(10) %>% lfoldr1(~~ ..1 + ..2)
+  
+  liota(10) %>>% lfoldl1(~~ ..1 + ..2)
+  liota(10) %>>% lfoldr1(~~ ..1 + ..2)
 
   liota(10) %>% lfoldl1(~~ paste0("(", ..1, "+", ..2, ")"))
   liota(10) %>% lfoldr1(~~ paste0("(", ..1, "+", ..2, ")"))
+  
+  liota(10) %>>% lfoldl1(~~ paste0("(", ..1, "+", ..2, ")"))
+  liota(10) %>>% lfoldr1(~~ paste0("(", ..1, "+", ..2, ")"))
 ```
 
 ``` r
