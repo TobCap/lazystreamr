@@ -13,4 +13,5 @@ Description:
   It is now unavoidable that the very long lazy stream causes stack-overflow
   because R does not have tail call optimization for tail recursion.
 License: MIT + file LICENSE
+Imports: tools
 Suggests: testthat
