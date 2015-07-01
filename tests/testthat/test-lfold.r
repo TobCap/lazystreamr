@@ -7,12 +7,12 @@ test_that("test", {
   expect_equal(lfoldr(x1_10, `+`, 0), 55)
   expect_equal(lfoldl1(x1_10, `+`), 55)
   expect_equal(lfoldr1(x1_10, `+`), 55)
-  expect_equal(
-    lforce(ltail(lscanl(liota(10), `+`, 0))),
+  expect_identical(
+    lforce(ltail(lscanl(liota(10), `+`, 0L))),
     lforce(lscanl1(liota(10), `+`))
   )
-  expect_equal(
-    f(lunfold_haskell(0, function(x) if (x >= 10) lempty else lcons(x, x + 1))),
+  expect_identical(
+    f(lunfold_haskell(0L, function(x) if (x >= 10L) lempty else lcons(x, x + 1L))),
     f(liota(10)))
 
 })
