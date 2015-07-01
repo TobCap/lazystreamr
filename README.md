@@ -11,14 +11,14 @@ ltake(lfib1, 30)
 # lfib1 %>% ltake(30) # with magrittr's %>%
 # lfib1 %>>% ltake(30) # with pipeR's %>>%
 
-# Double-tilda creates an anonymous function with dotted-placeholder
-lfib2 <- lseq_gen(0, 1, f = ~~ ..1 +..2)
+# another fibonacci calculation
+lfib2 <- lseq_gen(0, 1, f = function(x, y) x + y)
 ltake(lfib2, 30)
 
-ltake(lmap(liota(), ~~ .. ^ 2), 10)
+ltake(lmap(liota(), function(x) x ^ 2), 10)
 ## great readability with pipe-operator
-# liota() %>% lmap(~~ .. ^ 2) %>% ltake(10)
-# liota() %>>% lmap(~~ .. ^ 2) %>>% ltake(10)
+# liota() %>% lmap(function(x) x ^ 2) %>% ltake(10)
+# liota() %>>% lmap(function(x) x ^ 2) %>>% ltake(10)
 ```
 
 ## Installation
@@ -67,13 +67,13 @@ context is converted to lcons in lazystreamr's context.
 
 ``` r
   # Infinit seq
-  ones1 <- 1 %:% ones
+  ones1 <- 1 %:% ones1
   ones2 <- lrepeat(1)
   ones3 <- lseq_gen(1, f = function(x) x)
 ```
 
 ``` r
-  # basic sequence
+  # Basic sequence
   nat1 <- liota()
   nat2 <- lrange()
   nat3 <- larith(0, 1)
@@ -89,48 +89,29 @@ context is converted to lcons in lazystreamr's context.
 ```
 
 ``` r
-  # double-tilda creates closure with ".." placeholder
-  ~~ .. + 1
-  ~~ ..1 / ..2
-  ~~ ..2 / ..1
-
-  ltakeWhile(liota(), ~~ .. < 10)
-  ldropWhile(liota(), ~~ .. < 10)
-  lmap(1 %..% 10, ~~ .. ^ 2)
-  lfoldl(1 %..% 10, ~~ ..1 + ..2, 0)
-  lseq_gen(0, 1, ~~ ..1 + ..2)
-  lunfoldl(0, ~~ .. > 10, ~~ .. ^ 2, ~~ .. + 1)
-
-  # formula works
-  speed ~ dist
-  lm(speed ~ dist, data = cars)
-  lm(mpg ~ ., data = mtcars)
-```
-
-``` r
   # Map, Filter, Fold
   lmap(liota(), function(x) x ^ 2)
-  liota() %>% lmap(~~ .. ^ 2)
-  liota() %>>% lmap(~~ .. ^ 2)
+  liota() %>% lmap(function(x) x ^ 2)
+  liota() %>>% lmap(function(x) x ^ 2)
 
   lfilter(liota(), function(x) x %% 2 == 0)
-  liota() %>% lfilter(~~ .. %% 2 == 0)
-  liota() %>>% lfilter(~~ .. %% 2 == 0)
+  liota() %>% lfilter(function(x) x %% 2 == 0)
+  liota() %>>% lfilter(function(x) x %% 2 == 0)
 
   lfoldl(liota(10), function(x, y) x + y, 0)
   lfoldr(liota(10), function(x, y) x + y, 0)
 
-  liota(10) %>% lfoldl1(~~ ..1 + ..2)
-  liota(10) %>% lfoldr1(~~ ..1 + ..2)
+  liota(10) %>% lfoldl1(function(x, y) x + y)
+  liota(10) %>% lfoldr1(function(x, y) x + y)
   
-  liota(10) %>>% lfoldl1(~~ ..1 + ..2)
-  liota(10) %>>% lfoldr1(~~ ..1 + ..2)
+  liota(10) %>>% lfoldl1(function(x, y) x + y)
+  liota(10) %>>% lfoldr1(function(x, y) x + y)
 
-  liota(10) %>% lfoldl1(~~ paste0("(", ..1, "+", ..2, ")"))
-  liota(10) %>% lfoldr1(~~ paste0("(", ..1, "+", ..2, ")"))
+  liota(10) %>% lfoldl1(function(x, y) paste0("(", x, "+", y, ")"))
+  liota(10) %>% lfoldr1(function(x, y) paste0("(", x, "+", y, ")"))
   
-  liota(10) %>>% lfoldl1(~~ paste0("(", ..1, "+", ..2, ")"))
-  liota(10) %>>% lfoldr1(~~ paste0("(", ..1, "+", ..2, ")"))
+  liota(10) %>>% lfoldl1(function(x, y) paste0("(", x, "+", y, ")"))
+  liota(10) %>>% lfoldr1(function(x, y) paste0("(", x, "+", y, ")"))
 ```
 
 ``` r
