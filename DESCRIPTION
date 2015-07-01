@@ -1,7 +1,7 @@
 Package: lazystreamr
 Type: Package
 Title: Provides basic functions that handle lazy stream objects
-Version: 0.1
+Version: 0.1.1
 Date: 2015-04-04
 Authors@R: person("tob", "", email = "tobakucapitalism@gmail.com",
   role = c("aut", "cre"))
