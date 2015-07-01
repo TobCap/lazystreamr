@@ -15,7 +15,7 @@ NULL
 #' @rdname lprint
 #' @export
 lprint <- function(x, elem_max = 50, depth_max = 3, ...) {
-  message("llist -> list, lcons -> list(car = , cdr = )")
+  message("llist -> list, lcons -> pairlist(car = , cdr = )")
   dput(lforce(x, elem_max, depth_max), control = NULL)
 }
 
@@ -56,14 +56,14 @@ lforce <- function(x, elem_max = 50, depth_max = 3) {
     else if (!is.lpair(x))
       return(iter_normal(x, elem_max, depth_max))
     else if (is.lpair_not_llist(x))
-      return(list(
+      return(pairlist(
         car = iter(lhead(x), elem_init, depth_max - 1),
         cdr = iter(ltail(x), elem_init, depth_max - 1)))
 
     hd <- lhead(x); tl <- ltail(x); n <- elem_max; d <- depth_max
 
     if (is.lpair_not_llist(hd))
-      c(list(list(
+      c(list(pairlist(
         car = iter(lhead(hd), elem_init, d - 1),
         cdr = iter(ltail(hd), elem_init, d - 1))), iter(tl, n - 1, d))
     else if (is.llist(hd))

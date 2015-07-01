@@ -34,8 +34,6 @@ lfoldl <- function(x, f, init) {
   if (lnull(x)) init
   else lfoldl(ltail(x), f, f(init, lhead(x)))
 }
-# > lfoldl(`+`, 0, 1%..%10)
-# [1] 55
 
 #' @rdname lfold
 #' @export
@@ -43,6 +41,25 @@ lfoldl1 <- function(x, f) {
   if (lnull(x)) stop("x must be non-empty LList")
   else lfoldl(ltail(x), f, lhead(x))
 }
+
+#' @rdname lfold
+#' @export
+lfoldl_dash <- function(x, f, init) {
+  if (lnull(x)) init
+  else {
+    #forceAndCall(3, lfoldl_dash, ltail(x), f, f(init, lhead(x)))
+    tmp <- f(init, lhead(x))
+    lfoldl_dash(ltail(x), f, tmp)
+  }
+}
+
+#' @rdname lfold
+#' @export
+lfoldl1_dash <- function(x, f) {
+  if (lnull(x)) stop("x must be non-empty LList")
+  else lfoldl_dash(ltail(x), f, lhead(x))
+}
+
 
 #' @rdname lfold
 #' @export
