@@ -6,7 +6,7 @@ library("lazystreamr")
 
 # Compare to Haskell's code
 # https://wiki.haskell.org/The_Fibonacci_sequence#Canonical_zipWith_implementation
-lfib1 <- (0 %:% (1 %:% lzipWith('+', lfib1, ltail(lfib1))))
+lfib1 <- 0 %:% (1 %:% lzipWith('+', lfib1, ltail(lfib1)))
 ltake(lfib1, 30)
 # lfib1 %>% ltake(30) # with magrittr's %>%
 # lfib1 %>>% ltake(30) # with pipeR's %>>%
@@ -58,7 +58,7 @@ context is converted to lcons in lazystreamr's context.
 ``` r
   # Construct a lazy stream object
   l1 <- lcons(1, lcons(2, lcons(3, lempty)))
-  l2 <- (1 %:% (2 %:% (3 %:% lempty))) # need `(` because R's infix operator has left-associativity.
+  l2 <- 1 %:% (2 %:% (3 %:% lempty)) # need `(` because R's infix operator has left-associativity.
   l3 <- llist(1, 2, 3)
   l4 <- llist_lazy(1, 2, 3) # not evaluated 2, 3 at first
   l5 <- 1 %..% 3
@@ -118,7 +118,7 @@ context is converted to lcons in lazystreamr's context.
 ## https://www.haskell.org/ see top example
   sieve <- function(y) {
     p <- lhead(y); xs <- ltail(y)
-    p %:% sieve(lfilter(xs, ~~ .. %% p != 0))
+    p %:% sieve(lfilter(xs, function(x) x %% p != 0))
   }
   lprimes <- sieve(2%..%Inf)
   ltake(lprimes, 100)

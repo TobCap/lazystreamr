@@ -39,7 +39,7 @@ NULL
 #' @export
 liota <- function(n = Inf, start_ = 0L, step_ = 1L) {
   if (n <= 0L) lempty
-  else start_ %:% liota(n - 1, start_ + step_, step_)
+  else start_ %:% liota(n - 1L, start_ + step_, step_)
 }
 
 #' @rdname generators
@@ -52,7 +52,7 @@ larith <- function(start_, next_, end_ = Inf) {
 
 #' @rdname generators
 #' @export
-lrange <- function(start_ = 0, step_ = 1, end_ = Inf) {
+lrange <- function(start_ = 0L, step_ = 1L, end_ = Inf) {
   if (start_ > end_) lempty
   else start_ %:% lrange(start_ + step_, step_, end_)
 }
