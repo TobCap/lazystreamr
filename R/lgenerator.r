@@ -32,7 +32,7 @@ NULL
     else if (x > y) x %:% iter(x - 1L, y)
     else stop("")
   }
-  iter(as.integer(lhs), if (is.finite(rhs)) as.integer(rhs) else rhs)
+  iter(as.integer(lhs), if (abs(rhs) <= .Machine$integer.max) as.integer(rhs) else rhs)
 }
 
 #' @rdname generators
