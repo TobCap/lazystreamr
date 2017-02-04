@@ -17,6 +17,7 @@ NULL
 lprint <- function(x, elem_max = 50, depth_max = 3, ...) {
   message("llist -> list, lcons -> pairlist(car = , cdr = )")
   dput(lforce(x, elem_max, depth_max), control = NULL)
+
 }
 
 
@@ -26,7 +27,7 @@ print.lcons <- lprint
 
 #' @rdname lprint
 #' @export
-lforce <- function(x, elem_max = 50, depth_max = 3) {
+lforce <- function(x, elem_max = Inf, depth_max = Inf) {
   # save initial value
   elem_init <- elem_max
   depth_init <- depth_max
@@ -42,13 +43,15 @@ lforce <- function(x, elem_max = 50, depth_max = 3) {
         "the number of elements are over ",
         elem_init,
         "; stop converting and the rest are omitted")
-      return(quote(`... omitted rest elements`))
+      message("... omitted rest of elements")
+      return(NULL)
     } else if (depth_max == 0 && !lnull(x)) {
       message(
         "depth is over ",
         depth_init,
         "; stop converting and the rest are omitted")
-      return(list(quote(`... omitted deeper elements`)))
+      message("... omitted rest of elements")
+      return(NULL)
     }
 
     if (lnull(x))

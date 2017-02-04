@@ -12,7 +12,7 @@ lprint(x, elem_max = 50, depth_max = 3, ...)
 
 \method{print}{lcons}(x, elem_max = 50, depth_max = 3, ...)
 
-lforce(x, elem_max = 50, depth_max = 3)
+lforce(x, elem_max = Inf, depth_max = Inf)
 
 lforce_llist(x, elem_max = 100)
 }
