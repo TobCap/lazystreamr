@@ -9,7 +9,6 @@ library("lazystreamr")
 lfib1 <- 0 %:% (1 %:% lzipWith('+', lfib1, ltail(lfib1)))
 ltake(lfib1, 30)
 # lfib1 %>% ltake(30) # with magrittr's %>%
-# lfib1 %>>% ltake(30) # with pipeR's %>>%
 
 # another fibonacci calculation
 lfib2 <- lseq_gen(0, 1, f = function(x, y) x + y)
@@ -18,7 +17,6 @@ ltake(lfib2, 30)
 ltake(lmap(liota(), function(x) x ^ 2), 10)
 ## great readability with pipe-operator
 # liota() %>% lmap(function(x) x ^ 2) %>% ltake(10)
-# liota() %>>% lmap(function(x) x ^ 2) %>>% ltake(10)
 ```
 
 ## Installation
@@ -39,8 +37,6 @@ seemed to be able to transelate to R.
 ## Concept
 The semantics is from Scheme, but function names are from Haskell adding header
 letters "l" with few exceptions.
-
-## Basic idea
 Almost all ideas are from Scheme. The most fundamental function is lcons() which
 takes two arguments. The output is a R's pairlist object which has two lengths,
 named head and tail respectively, and S3 class name of "lcons". The head part is
@@ -66,19 +62,28 @@ context is converted to lcons in lazystreamr's context.
 ```
 
 ``` r
-  # Infinit seq
+  # Infinit seq of 1
   ones1 <- 1 %:% ones1
   ones2 <- lrepeat(1)
   ones3 <- lseq_gen(1, f = function(x) x)
 ```
 
 ``` r
-  # Basic sequence
+  # Basic sequence (natural numbers)
   nat1 <- liota()
   nat2 <- lrange()
   nat3 <- larith(0, 1)
 ```
 
+The 'l()' functions and constructers return a `lcons` object.
+If you want to convert it into R's list, use `lforce()`.
+``` r
+# by defalt, 50 elements are limitted to prevent from looping infinitely.
+lforce(ones)
+lforce(ones, elem_max=100)
+```
+
+## Examples of manipulations
 ``` r
   # Take subset of lazystream
   l <- liota()
@@ -92,11 +97,9 @@ context is converted to lcons in lazystreamr's context.
   # Map, Filter, Fold
   lmap(liota(), function(x) x ^ 2)
   liota() %>% lmap(function(x) x ^ 2)
-  liota() %>>% lmap(function(x) x ^ 2)
 
   lfilter(liota(), function(x) x %% 2 == 0)
   liota() %>% lfilter(function(x) x %% 2 == 0)
-  liota() %>>% lfilter(function(x) x %% 2 == 0)
 
   lfoldl(liota(10), function(x, y) x + y, 0)
   lfoldr(liota(10), function(x, y) x + y, 0)
@@ -104,14 +107,8 @@ context is converted to lcons in lazystreamr's context.
   liota(10) %>% lfoldl1(function(x, y) x + y)
   liota(10) %>% lfoldr1(function(x, y) x + y)
   
-  liota(10) %>>% lfoldl1(function(x, y) x + y)
-  liota(10) %>>% lfoldr1(function(x, y) x + y)
-
   liota(10) %>% lfoldl1(function(x, y) paste0("(", x, "+", y, ")"))
   liota(10) %>% lfoldr1(function(x, y) paste0("(", x, "+", y, ")"))
-  
-  liota(10) %>>% lfoldl1(function(x, y) paste0("(", x, "+", y, ")"))
-  liota(10) %>>% lfoldr1(function(x, y) paste0("(", x, "+", y, ")"))
 ```
 
 ``` r
